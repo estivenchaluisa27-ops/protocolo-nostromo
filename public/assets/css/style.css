@@ -1,0 +1,81 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050505; /* Negro profundo */
+    color: #39FF14; /* Verde terminal fosforescente */
+    font-family: 'Courier Prime', 'Courier New', Courier, monospace;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* El efecto del monitor CRT */
+.pantalla-nostromo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 3rem;
+    text-shadow: 0 0 5px #39FF14, 0 0 15px #39FF14; /* Resplandor del texto */
+    z-index: 1;
+}
+
+/* Líneas de escaneo (Scanlines) */
+.pantalla-nostromo::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    z-index: 10;
+    pointer-events: none; /* Permite hacer clic a través de las líneas */
+}
+
+/* Viñeta (borde oscuro del monitor) */
+.pantalla-nostromo::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%);
+    z-index: 11;
+    pointer-events: none;
+}
+
+.texto-terminal {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    white-space: pre-wrap; /* Respeta los saltos de línea del JS */
+}
+
+/* Botón parpadeante oculto por defecto */
+#btn-iniciar {
+    display: none;
+    margin-top: 40px;
+    background: transparent;
+    color: #39FF14;
+    border: 2px solid #39FF14;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    font-family: inherit;
+    cursor: pointer;
+    text-shadow: inherit;
+    box-shadow: 0 0 10px #39FF14 inset, 0 0 10px #39FF14;
+    animation: parpadeo 1.5s infinite;
+}
+
+#btn-iniciar:hover {
+    background: #39FF14;
+    color: #000;
+}
+
+@keyframes parpadeo {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
